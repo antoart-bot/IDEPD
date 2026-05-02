@@ -1,0 +1,371 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Merriweather:ital,wght@0,300;0,700;1,300&family=Nunito:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap');
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #050816;
+    color: white;
+    min-height: 100vh;
+}
+
+main {
+    backdrop-filter: blur(10px);
+}
+
+#top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+    background: rgba(1, 11, 53, 0.842);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+#top1 {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    font-family: "Merriweather", serif;
+}
+
+#nametitle h2 {
+    color: #22c55e;
+}
+
+#nav1 {
+    display: flex;
+    gap: 20px;
+}
+
+#nav1 a {
+    color: #9ca3af;
+    text-decoration: none;
+    font-family: "Nunito", sans-serif;
+    position: relative;
+}
+
+#nav1 a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0%;
+    height: 2px;
+    background: #22c55e;
+}
+
+#nav1 a:hover::after {
+    width: 100%;
+}
+
+#nav1 a:hover {
+    color: #22c55e;
+}
+
+/* HERO */
+#container {
+    display: flex;
+    padding: 80px;
+    justify-content: space-between;
+}
+
+#title {
+    font-size: 1.7em;
+    font-family: "Playfair Display", serif;
+}
+
+#title-part {
+    color: #1bb152;
+}
+
+#txt1 {
+    color: #dbdbdb;
+    font-family: "Nunito", sans-serif;
+    max-width: 600px;
+    margin-top: 30px;
+    line-height: 1.6;
+}
+
+/* SEÇÃO PRINCIPAL */
+#reclamacao {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    padding: 80px 20px;
+}
+
+#reclamacao1,
+#mapa-container {
+    background-color: #0b1224;
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    width: 750px;
+}
+
+/* 🔥 INPUTS CORRIGIDOS */
+#inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+#inputs h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #9ca3af;
+    margin-top: 15px;
+}
+
+#msg {
+    margin-bottom: 25px;
+}
+
+#inputs input,
+#inputs select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background-color: #050816;
+    color: white;
+    font-family: "Nunito", sans-serif;
+    font-size: 15px;
+}
+
+#inputs input::placeholder {
+    color: #6b7280;
+}
+
+#inputs input:hover,
+#inputs select:hover {
+    border-color: rgba(255,255,255,0.2);
+}
+
+#inputs input:focus,
+#inputs select:focus {
+    outline: none;
+    border-color: #22c55e;
+    box-shadow: 0 0 8px rgba(34,197,94,0.25);
+}
+
+/* BOTÃO */
+#boto {
+    margin-top: 20px;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#boto:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(34,197,94,0.3);
+}
+
+#boto:active {
+    transform: scale(0.97);
+}
+
+#txt2 {
+    color: #6b7280d5;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#im {
+    color: #22c55e;
+}
+
+#mapa-titulo {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+#map {
+    width: 100%;
+    height: 550px;
+    border-radius: 10px;
+}
+
+#legenda {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.item-legenda {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+.cor {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+
+#ultimas {
+    margin: 80px;
+    background: linear-gradient(145deg, #0b1224, #0f172a);
+    padding: 35px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+
+#ultimas h3 {
+    font-size: 22px;
+    margin-bottom: 25px;
+    display: flex;
+    gap: 12px;
+}
+
+.reclamacao-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background-color: rgba(255,255,255,0.02);
+}
+
+.reclamacao-item:hover {
+    transform: translateX(5px);
+    background-color: rgba(255,255,255,0.05);
+}
+
+.bolinha {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.reclamacao-item.red .bolinha { background: #ef4444; }
+.reclamacao-item.yellow .bolinha { background: #eab308; }
+.reclamacao-item.blue .bolinha { background: #3b82f6; }
+
+#simbolo {
+    width: 60px;
+}
+
+#img {
+    max-width: 800px;
+    border-radius: 12px;
+    border: solid 1px rgba(34,197,94,0.3);
+}
+
+#img:hover {
+    transform: scale(1.02);
+}
+
+/* 📱 RESPONSIVO */
+
+/* tablets */
+@media (max-width: 1024px) {
+
+    #container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 50px 20px;
+    }
+
+    #img {
+        width: 100%;
+        max-width: 500px;
+        margin-top: 30px;
+    }
+
+    #reclamacao {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #reclamacao1,
+    #mapa-container {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    #ultimas {
+        margin: 40px 20px;
+    }
+}
+
+/* celular */
+@media (max-width: 600px) {
+
+    #top {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    #nav1 {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #container {
+        padding: 40px 15px;
+    }
+
+    #title {
+        font-size: 1.3em;
+    }
+
+    #txt1 {
+        font-size: 14px;
+    }
+
+    #reclamacao {
+        padding: 40px 15px;
+        gap: 30px;
+    }
+
+    #reclamacao1,
+    #mapa-container {
+        padding: 25px;
+    }
+
+    #map {
+        height: 300px;
+    }
+
+    #ultimas {
+        margin: 30px 15px;
+        padding: 25px;
+    }
+
+    .reclamacao-item {
+        flex-direction: column;
+        gap: 5px;
+        font-size: 14px;
+    }
+}

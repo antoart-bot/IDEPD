@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Merriweather:ital,wght@0,300;0,700;1,300&family=Nunito:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+#top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+    background: rgba(1, 11, 53, 0.842);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+#nametitle h2{
+    color: #22c55e;
+}
+
+#top1{
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    font-family: "Merriweather", serif;
+}
+
+#nav1 {
+    display: flex;
+    gap: 20px;
+}
+
+#nav1 a {
+    color: #9ca3af;
+    text-decoration: none;
+    font-family: "Nunito", sans-serif;
+    position: relative;
+}
+
+#nav1 a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0%;
+    height: 2px;
+    background: #22c55e;
+    transition: width 0.3s ease;
+}
+
+#nav1 a:hover::after {
+    width: 100%;
+}
+
+#nav1 a:hover {
+    color: #22c55e;
+}
+
+#container{
+    min-height: 100vh;
+    background-attachment: fixed;
+    background:
+        radial-gradient(circle at 25% 60%, rgba(34, 255, 150, 0.12), transparent 50%),
+        radial-gradient(circle at 75% 30%, rgba(59, 130, 246, 0.12), transparent 50%),
+        linear-gradient(180deg, #020617 0%, #020617 40%, #03120c 100%);
+}
+
+#partprin{
+    display: flex;
+    justify-content: space-between;
+    padding: 80px;
+}
+
+#parta{
+    letter-spacing: 1px;
+    padding: 40px;
+}
+
+#titleprin{
+    color: #e5e7eb;
+    font-family: "Playfair Display", serif;
+    font-size: 28px;
+    line-height: 1.3;
+}
+
+#titleprin-city{
+    color: #22c55e;
+}
+
+#txt1{
+    color: #9ca3af;
+    font-family: "Nunito", sans-serif;
+    max-width: 600px;
+    margin-top: 30px;
+    line-height: 1.6;
+}
+
+
+#boto{
+    margin-top: 60px;
+    display: flex;
+    gap: 30px;
+}
+
+#boto1{
+    color: #ffffff;
+    text-decoration: none;
+    font-family: "Lato", sans-serif;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    padding: 18px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+}
+
+#boto1:hover{
+    transform: scale(1.05);
+}
+
+#boto2{
+    color: #22c55e;
+    text-decoration: none;
+    font-family: "Lato", sans-serif;
+    border: 1px solid #22c55e;
+    padding: 18px 28px;
+    border-radius: 10px;
+}
+
+#boto2:hover{
+    background-color: rgba(34, 197, 94, 0.1);
+    transform: scale(1.05);
+}
+
+#boto1:active,
+#boto2:active{
+    transform: scale(0.96);
+}
+
+#linha{
+    border: solid 1px rgba(255, 255, 255, 0.05);
+}
+
+#apresentando{
+    display: flex;
+    justify-content: space-between;
+    padding: 28px 100px 0 120px ;
+}
+
+#sobre h3{
+    font-size: 1.6em;
+    color: #22c55e;
+    font-family: "Nunito", sans-serif;
+}
+
+#im{
+    margin-right: 10px;
+    color: #22c55e;
+    font-size: 1.3em;
+}
+
+#txt2{
+    color: #9ca3af;
+    font-family: "Playfair Display", serif;
+    font-size: 0.95em;
+    width: 500px;
+    line-height: 1.6;
+}
+
+#tipos{
+    display: flex;
+    gap: 60px;
+}
+
+#tipos div h4{
+    color: #e5e7eb;
+    font-size: 1.3em;
+}
+
+#tipos div p{
+    width: 250px;
+    color: #9ca3af;
+    font-family: "Nunito", sans-serif;
+}
+
+
+#img{
+    width: 800px;
+    border-radius: 12px;
+    border: solid 1px rgba(34,197,94,0.3);
+}
+
+#img:hover {
+    transform: scale(1.02);
+}
+
+#fim{
+    background-color: #010a05;
+    padding: 20px;
+    text-align: center;
+    color: #9ca3af;
+}
+
+#simbolo{ 
+    width: 60px; 
+}
+
+
+@media (max-width: 1024px) {
+    #partprin {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 40px;
+    }
+
+    #txt1 {
+        width: 100%;
+    }
+
+    #img {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    #apresentando {
+        flex-direction: column;
+        gap: 40px;
+        padding: 40px;
+    }
+
+    #txt2 {
+        width: 100%;
+    }
+
+    #tipos {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    #top {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    #nav1 {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #nav1 a {
+        font-size: 14px;
+    }
+
+    #boto {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        margin-top: 30
+    }
+}

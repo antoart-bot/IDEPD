@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style2.css">
+    <title>Projetos</title>
+</head>
+<body>
+<header id="top">
+<div id="top1">
+
+        <div>
+            <img id="simbolo" src="img/simbolo.png" alt="Simbolo IDEPD">
+        </div>
+
+        <div id="nametitle">
+            <h2>IDEPD</h2>
+        </div>
+
+    </div>
+    <nav id="nav1">
+        <a href="index.html">Início</a>
+        <a href="problemas.html">Projetos</a>
+        <a href="problemas.html">Contato</a>
+    </nav>
+
+    </header>
+    <main>
+    <div id="container">
+        <div>
+            <div id="title">
+                <h1>Revitalização da <div id="title-part">Praça Central</div></h1>
+            </div>
+            <div id="txt1">
+                <p>
+                    Nosso obejetivo é transformar a Praça central em um espaço mais seguro, acessível e agradável para todos.
+                 </p>
+            </div>
+        </div>
+            <div>
+                <img id="img" src="img/PRESIDENTE-DUTRA.jpg" alt="">
+            </div>
+    </div>
+
+<div id="reclamacao">
+
+  <div id="reclamacao1">        
+    <h3 id="msg">
+      <i id="im" class="fa-regular fa-message"></i>Envie sua reclamação
+    </h3>
+
+<form action="https://formsubmit.co/vitorarthurxxx@gmail.com" method="POST">
+
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_subject" value="Nova Reclamação - Cidade">
+
+  <div id="inputs">
+    <h4>Qual o problema?</h4>
+    <input name="Problema" type="text" placeholder="Descreva o problema..." required>
+
+    <h4>Onde está acontecendo?</h4>
+    <input name="Local" type="text" placeholder="Ex: Rua das Flores, Centro" required>
+
+    <h4>Categoria</h4>
+    <select name="Categoria" required>
+      <option value="">Selecione uma categoria</option>
+      <option value="Segurança">Segurança</option>
+      <option value="Iluminação">Iluminação</option>
+      <option value="Infraestrutura">Infraestrutura</option>
+      <option value="Limpeza">Limpeza urbana</option>
+    </select>
+
+    <button id="boto" type="submit">Enviar</button>
+  </div>
+</form>
+</div>
+
+
+  <div id="mapa-container">
+    <h3 id="mapa-titulo">
+      <i id="im" class="fa-solid fa-map"></i> Mapa de problemas
+    </h3>
+
+    <div id="map"></div>
+
+    <div id="legenda">
+      <div class="item-legenda">
+        <span class="cor" style="background:red;"></span> Alto risco
+      </div>
+      <div class="item-legenda">
+        <span class="cor" style="background:yellow;"></span> Médio risco
+      </div>
+      <div class="item-legenda">
+        <span class="cor" style="background:blue;"></span> Baixo risco
+      </div>
+    </div>
+  </div>
+
+</div>
+        </div>
+        </div>
+<div id="ultimas">
+    <h3>
+        <i id="im" class="fa-solid fa-clock"></i> Últimas reclamações
+    </h3>
+
+    <div class="reclamacao-item red">
+        <span class="bolinha"></span>
+        Buraco grande na via - Av. José Olavo <small>Hoje</small>
+    </div>
+
+    <div class="reclamacao-item yellow">
+        <span class="bolinha"></span>
+        Falta de iluminação - R. Graçaranha <small>Ontem</small>
+    </div>
+
+    <div class="reclamacao-item blue">
+        <span class="bolinha"></span>
+        Acúmulo de lixo - R. Pedro Gualter <small>2 dias atrás</small>
+    </div>
+</div>
+
+    </main>
+    <footer></footer>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+    
+</body>
+</html>
