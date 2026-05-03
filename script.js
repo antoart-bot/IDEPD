@@ -56,6 +56,15 @@ window.addEventListener("load", () => {
 
   carregarVotosFirebase();
 
+  carregarReclamacoes();
+  
+  let cor = "#22c55e";
+
+if (r.categoria === "Segurança") cor = "#ef4444";
+if (r.categoria === "Iluminação") cor = "#facc15";
+if (r.categoria === "Infraestrutura") cor = "#3b82f6";
+if (r.categoria === "Limpeza") cor = "#10b981";
+
   // 📝 FORM
   const form = document.getElementById("formReclamacao");
 
@@ -185,4 +194,40 @@ function atualizarRanking() {
       </div>
     `;
   });
+}
+
+
+function carregarReclamacoes() {
+
+  const lista = document.getElementById("listaReclamacoes");
+  if (!lista) return;
+
+  const refReclamacoes = ref(db, "reclamacoes");
+
+  onValue(refReclamacoes, (snapshot) => {
+
+    let dados = snapshot.val();
+    if (!dados) return;
+
+    // transforma em array
+    let reclamacoes = Object.values(dados);
+
+    // pega as mais recentes (últimas 4)
+    reclamacoes = reclamacoes.slice(-4).reverse();
+
+    lista.innerHTML = "";
+
+    reclamacoes.forEach((r) => {
+      lista.innerHTML += `
+        <div class="item-reclamacao">
+          <strong>${r.categoria}</strong>
+          <p>${r.problema}</p>
+          <span>${r.local}</span>
+          <small>${r.data}</small>
+        </div>
+      `;
+    });
+
+  });
+
 }
