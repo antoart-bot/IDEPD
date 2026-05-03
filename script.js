@@ -2,12 +2,28 @@ let marcadorSelecionado = null;
 
 window.onload = function () {
 
-  // 🌍 MAPA
-  var map = L.map('map').setView([-5.300, -44.490], 14);
+var map = L.map('map', {
+  zoomControl: false
+}).setView([-5.300, -44.490], 14);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap'
-  }).addTo(map);
+L.control.zoom({
+  position: 'topright'
+}).addTo(map);
+
+var normal = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+
+var satelite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+  subdomains: ['mt0','mt1','mt2','mt3']
+});
+
+satelite.addTo(map);
+
+L.control.layers({
+  "Mapa": normal,
+  "Satélite": satelite
+}).addTo(map);
+
+satelite.addTo(map);
 
   // 📍 PONTOS FIXOS
   const pontos = [
@@ -55,61 +71,56 @@ window.onload = function () {
     }
   ];
 
-  // 🎨 ÍCONES
-  function criarIcone(cor) {
-    return L.divIcon({
-      className: "",
-      html: `<div style="
-        background:${cor};
-        width:14px;
-        height:14px;
-        border-radius:50%;
-        box-shadow:0 0 10px ${cor};
-      "></div>`
-    });
-  }
+function criarIcone(cor) {
+  return L.divIcon({
+    className: "marker-wrapper",
+    html: `
+      <div class="marker-pulse marker-${cor}">
+        <div class="marker-core"></div>
+      </div>
+    `
+  });
+}
 
-  // 🚀 ADICIONAR PONTOS
   pontos.forEach(p => {
     L.marker(p.coords, {
       icon: criarIcone(p.cor)
     })
     .addTo(map)
-    .bindPopup(`<b>${p.rua}</b><br>${p.problema}`);
-  });
+    .bindPopup(`
+  <div class="popup">
+    <strong>${p.rua}</strong>
+    <p>${p.problema}</p>
+  </div>
+`);
+  }); 
 
-  // 📍 LOCALIZAÇÃO DO USUÁRIO
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       map.setView([position.coords.latitude, position.coords.longitude], 15);
     });
   }
+document.querySelector("form").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-  // 🖱️ CLIQUE NO MAPA (opcional - pode remover se quiser)
-  map.on('click', function(e) {
+  const problema = document.querySelector('[name="Problema"]').value;
+  const local = document.querySelector('[name="Local"]').value;
+  const categoria = document.querySelector('[name="Categoria"]').value;
 
-    if (marcadorSelecionado) {
-      map.removeLayer(marcadorSelecionado);
-    }
+  if (!problema || !local || !categoria) {
+    alert("Preencha todos os campos!");
+    return;
+  }
 
-    marcadorSelecionado = L.marker([e.latlng.lat, e.latlng.lng])
-      .addTo(map)
-      .bindPopup("Novo problema")
-      .openPopup();
+  emailjs.send("SEU_SERVICE_ID", "SEU_TEMPLATE_ID", {
+    problema: problema,
+    local: local,
+    categoria: categoria
+  })
+  .then(function() {
+    alert("Reclamação enviada com sucesso!");
+  }, function(error) {
+    alert("Erro ao enviar.");
+    console.log(error);
   });
-
-  // ✅ VALIDAÇÃO DO FORM (AGORA COM FORMSUBMIT)
-  const form = document.querySelector("form");
-
-  form.addEventListener("submit", function(e) {
-    const problema = document.querySelector('[name="Problema"]').value;
-    const local = document.querySelector('[name="Local"]').value;
-    const categoria = document.querySelector('[name="Categoria"]').value;
-
-    if (!problema || !local || !categoria) {
-      e.preventDefault(); // ❌ impede envio
-      alert("Preencha todos os campos!");
-    }
-  });
-
-};
+})

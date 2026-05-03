@@ -52,10 +52,12 @@
       <i id="im" class="fa-regular fa-message"></i>Envie sua reclamação
     </h3>
 
-<form action="https://formsubmit.co/vitorarthurxxx@gmail.com" method="POST">
+<form action="https://formsubmit.co/arthurdev2010@gmail.com" method="POST">
 
   <input type="hidden" name="_captcha" value="false">
   <input type="hidden" name="_subject" value="Nova Reclamação - Cidade">
+  <input type="hidden" name="_next" value="https://seusite.com/obrigado.html">
+  <input type="hidden" name="_captcha" value="false">
 
   <div id="inputs">
     <h4>Qual o problema?</h4>
@@ -126,6 +128,12 @@
     </main>
     <footer></footer>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      (function(){
+        emailjs.init("SUA_PUBLIC_KEY");
+      })();
+    </script>
     <script src="script.js"></script>
     
 </body>
