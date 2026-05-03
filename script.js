@@ -100,6 +100,7 @@ function criarIcone(cor) {
       map.setView([position.coords.latitude, position.coords.longitude], 15);
     });
   }
+
 document.querySelector("form").addEventListener("submit", function(e) {
   e.preventDefault();
 
@@ -112,15 +113,18 @@ document.querySelector("form").addEventListener("submit", function(e) {
     return;
   }
 
-  emailjs.send("SEU_SERVICE_ID", "SEU_TEMPLATE_ID", {
+  emailjs.send("service_xxx", "template_xxx", {
     problema: problema,
     local: local,
     categoria: categoria
   })
-  .then(function() {
-    alert("Reclamação enviada com sucesso!");
-  }, function(error) {
+  .then(() => {
+    alert("Enviado com sucesso!");
+  })
+  .catch((err) => {
+    console.log(err);
     alert("Erro ao enviar.");
-    console.log(error);
   });
-})
+});
+
+};
