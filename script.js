@@ -1,32 +1,40 @@
-let marcadorSelecionado = null;
+    let marcadorSelecionado = null;
 
-window.onload = function () {
+    window.onload = function () {
 
-var map = L.map('map', {
-  zoomControl: false
-}).setView([-5.300, -44.490], 14);
+    var map = L.map('map', {
+      zoomControl: false
+    }).setView([-5.300, -44.490], 14);
 
-L.control.zoom({
-  position: 'topright'
-}).addTo(map);
+    L.control.zoom({
+      position: 'topright'
+    }).addTo(map);
 
-var normal = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+    var normal = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 
-var satelite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-  subdomains: ['mt0','mt1','mt2','mt3']
-});
+    var satelite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+      subdomains: ['mt0','mt1','mt2','mt3']
+    });
 
-satelite.addTo(map);
+    normal.addTo(map); 
 
-L.control.layers({
-  "Mapa": normal,
-  "Satélite": satelite
-}).addTo(map);
+    L.control.layers({
+      "Mapa": normal,
+      "Satélite": satelite
+    }).addTo(map);
 
-satelite.addTo(map);
+    satelite.addTo(map);
 
-  // 📍 PONTOS FIXOS
-  const pontos = [
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 500);
+
+
+    window.addEventListener('resize', () => {
+  map.invalidateSize();
+}); 
+
+    const pontos = [
     {
       coords: [-5.302706039452708, -44.489558664933824],
       rua: "Av. José Olavo Sampaio",
