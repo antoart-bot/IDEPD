@@ -6,13 +6,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getDatabase, ref, set, onValue, push } 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-// 🔑 FIREBASE
 const firebaseConfig = {
-  apiKey: "SUA_API_KEY",
+  apiKey: "AIzaSyABnSnVlJghgdnZO-PL-cyJBVaS9d29iSI",
   authDomain: "mapa-f6979.firebaseapp.com",
   databaseURL: "https://mapa-f6979-default-rtdb.firebaseio.com",
   projectId: "mapa-f6979",
-  storageBucket: "mapa-f6979.appspot.com",
+  storageBucket: "mapa-f6979.appspot.com", // corrigido
   messagingSenderId: "71217218892",
   appId: "1:71217218892:web:b75e90375a9c873215fbe9"
 };
@@ -20,7 +19,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// 📍 PONTOS
 const pontos = [
   { coords: [-5.3027, -44.4895], rua: "Av. José Olavo Sampaio", problema: "Problemas relatados", cor: "red", votos: 0 },
   { coords: [-5.2970, -44.4893], rua: "R. Graçaranha", problema: "Problemas relatados", cor: "yellow", votos: 0 },
@@ -55,17 +53,8 @@ window.addEventListener("load", () => {
   setTimeout(() => map.invalidateSize(), 500);
 
   carregarVotosFirebase();
-
   carregarReclamacoes();
-  
-  let cor = "#22c55e";
 
-if (r.categoria === "Segurança") cor = "#ef4444";
-if (r.categoria === "Iluminação") cor = "#facc15";
-if (r.categoria === "Infraestrutura") cor = "#3b82f6";
-if (r.categoria === "Limpeza") cor = "#10b981";
-
-  // 📝 FORM
   const form = document.getElementById("formReclamacao");
 
   if (form) {
@@ -76,12 +65,13 @@ if (r.categoria === "Limpeza") cor = "#10b981";
       const local = form.Local.value;
       const categoria = form.Categoria.value;
 
-      push(ref(db, "reclamacoes"), {
-        problema,
-        local,
-        categoria,
-        data: new Date().toLocaleString()
-      });
+push(ref(db, "reclamacoes"), {
+  problema,
+  local,
+  categoria,
+  tipo: categoria, // 🔥 usa categoria como tipo
+  data: Date.now()
+});
 
       alert("Reclamação enviada!");
       form.reset();
@@ -100,7 +90,6 @@ window.votar = function(index) {
   }, { onlyOnce: true });
 };
 
-// 🔄 CARREGAR VOTOS
 function carregarVotosFirebase() {
   const votosRef = ref(db, 'votos');
 
@@ -114,6 +103,7 @@ function carregarVotosFirebase() {
 
     atualizarMapa();
     atualizarRanking();
+    atualizarGrafico();
   });
 }
 
@@ -129,7 +119,32 @@ function criarIcone(cor) {
   });
 }
 
-// 🗺️ ATUALIZAR MAPA
+function criarIconeTipo(tipo) {
+
+  let emoji = "📍";
+
+  if (tipo === "Segurança") emoji = "🚨";
+  if (tipo === "Iluminação") emoji = "💡";
+  if (tipo === "Infraestrutura") emoji = "🕳️";
+  if (tipo === "Limpeza") emoji = "🧹";
+
+  return L.divIcon({
+    className: "marker-wrapper",
+    html: `
+      <div style="
+        font-size: 20px;
+        background: #0b1224;
+        padding: 6px 10px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.1);
+      ">
+        ${emoji}
+      </div>
+    `
+  });
+}
+
+
 function atualizarMapa() {
 
   markersLayer.clearLayers();
@@ -157,7 +172,6 @@ function atualizarMapa() {
   });
 }
 
-// 🏆 RANKING
 function atualizarRanking() {
 
   const container = document.getElementById("listaRuas");
@@ -196,7 +210,6 @@ function atualizarRanking() {
   });
 }
 
-
 function carregarReclamacoes() {
 
   const lista = document.getElementById("listaReclamacoes");
@@ -207,19 +220,35 @@ function carregarReclamacoes() {
   onValue(refReclamacoes, (snapshot) => {
 
     let dados = snapshot.val();
-    if (!dados) return;
+    if (!dados) {
+      lista.innerHTML = "<p>Sem reclamações ainda...</p>";
+      return;
+    }
 
     // transforma em array
     let reclamacoes = Object.values(dados);
 
-    // pega as mais recentes (últimas 4)
-    reclamacoes = reclamacoes.slice(-4).reverse();
+    // ordena pelas mais recentes (IMPORTANTE)
+    reclamacoes.sort((a, b) => {
+      return new Date(b.data) - new Date(a.data);
+    });
+
+    // pega só as 4 mais recentes
+    let ultimas4 = reclamacoes.slice(0, 4);
 
     lista.innerHTML = "";
 
-    reclamacoes.forEach((r) => {
+    ultimas4.forEach((r) => {
+
+      let cor = "#22c55e";
+
+      if (r.categoria === "Segurança") cor = "#ef4444";
+      if (r.categoria === "Iluminação") cor = "#facc15";
+      if (r.categoria === "Infraestrutura") cor = "#3b82f6";
+      if (r.categoria === "Limpeza") cor = "#10b981";
+
       lista.innerHTML += `
-        <div class="item-reclamacao">
+        <div class="item-reclamacao" style="border-left: 5px solid ${cor}">
           <strong>${r.categoria}</strong>
           <p>${r.problema}</p>
           <span>${r.local}</span>
@@ -230,4 +259,63 @@ function carregarReclamacoes() {
 
   });
 
+}
+
+let grafico;
+
+function atualizarGrafico() {
+
+  const canvas = document.getElementById('graficoVotos');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+
+  const nomes = pontos.map(p => p.rua);
+  const votos = pontos.map(p => p.votos);
+
+  if (grafico) {
+    grafico.destroy();
+  }
+
+  grafico = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: nomes,
+      datasets: [{
+        label: 'Votos',
+        data: votos,
+        borderWidth: 1,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+
+      animation: {
+        duration: 1200,
+        easing: 'easeOutQuart'
+      },
+
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: "#9ca3af" // cor dos números
+          }
+        },
+        x: {
+          ticks: {
+            color: "#9ca3af" // nomes das ruas
+          }
+        }
+      }
+    }
+  });
 }
