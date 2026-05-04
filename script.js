@@ -270,8 +270,14 @@ function atualizarGrafico() {
 
   const ctx = canvas.getContext('2d');
 
-  const nomes = pontos.map(p => p.rua);
-  const votos = pontos.map(p => p.votos);
+let dadosOrdenados = [...pontos].sort((a, b) => b.votos - a.votos);
+
+if (window.innerWidth < 768) {
+  dadosOrdenados = dadosOrdenados.slice(0, 5);
+}
+
+const nomes = dadosOrdenados.map(p => p.rua);
+const votos = dadosOrdenados.map(p => p.votos);
 
   if (grafico) {
     grafico.destroy();
@@ -289,33 +295,50 @@ function atualizarGrafico() {
       }]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
+  responsive: true,
+  maintainAspectRatio: false,
 
-      animation: {
-        duration: 1200,
-        easing: 'easeOutQuart'
-      },
+  indexAxis: window.innerWidth < 768 ? 'y' : 'x', // 🔥 muda no celular
 
-      plugins: {
-        legend: {
-          display: false
+  scales: {
+    x: {
+      ticks: {
+        color: "#9ca3af",
+        font: {
+          size: window.innerWidth < 768 ? 10 : 14 // 📱 menor no celular
         }
       },
-
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            color: "#9ca3af" // cor dos números
-          }
-        },
-        x: {
-          ticks: {
-            color: "#9ca3af" // nomes das ruas
-          }
+      grid: {
+        display: false
+      }
+    },
+    y: {
+      ticks: {
+        color: "#9ca3af",
+        font: {
+          size: window.innerWidth < 768 ? 10 : 12
         }
+      },
+      grid: {
+        color: "rgba(255,255,255,0.05)"
       }
     }
+  },
+
+  plugins: {
+    legend: {
+      display: false
+    }
+  }
+}
+
+    
   });
+}
+
+const isMobile = window.innerWidth < 768;
+let dadosOrdenados = [...pontos].sort((a, b) => b.votos - a.votos);
+
+if (isMobile) {
+  dadosOrdenados = dadosOrdenados.slice(0, 5);
 }
