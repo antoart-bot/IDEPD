@@ -287,47 +287,63 @@ const votos = dadosOrdenados.map(p => p.votos);
     type: 'bar',
     data: {
       labels: nomes,
-      datasets: [{
-        label: 'Votos',
-        data: votos,
-        borderWidth: 1,
-        borderRadius: 8
-      }]
+    datasets: [{
+      label: 'Votos',
+      data: votos,
+      borderRadius: 8,
+      borderSkipped: false,
+
+      backgroundColor: votos.map((v, i) => {
+        if (i === 0) return "#16a34a"; // 🥇 verde forte
+    if (i === 1) return "#22c55e"; // 🥈 verde médio
+    if (i === 2) return "#4ade80"; // 🥉 verde claro
+    return "#93c5fd"; // resto azul claro
+  })
+}]
     },
     options: {
   responsive: true,
   maintainAspectRatio: false,
 
-  indexAxis: window.innerWidth < 768 ? 'y' : 'x', // 🔥 muda no celular
+  indexAxis: window.innerWidth < 768 ? 'y' : 'x',
 
   scales: {
     x: {
       ticks: {
-        color: "#9ca3af",
+        color: "#374151", // texto escuro
         font: {
-          size: window.innerWidth < 768 ? 10 : 14 // 📱 menor no celular
+          size: window.innerWidth < 768 ? 10 : 14,
+          weight: "500"
         }
       },
       grid: {
-        display: false
+        color: "#e5e7eb" // grid claro
       }
     },
     y: {
       ticks: {
-        color: "#9ca3af",
+        color: "#374151",
         font: {
           size: window.innerWidth < 768 ? 10 : 12
         }
       },
       grid: {
-        color: "rgba(255,255,255,0.05)"
+        color: "#e5e7eb"
       }
     }
   },
 
+  
   plugins: {
     legend: {
       display: false
+    },
+    tooltip: {
+      backgroundColor: "#111827",
+      titleColor: "#fff",
+      bodyColor: "#fff",
+      padding: 10,
+      cornerRadius: 8
     }
   }
 }
@@ -335,9 +351,6 @@ const votos = dadosOrdenados.map(p => p.votos);
     
   });
 }
-
-const isMobile = window.innerWidth < 768;
-let dadosOrdenados = [...pontos].sort((a, b) => b.votos - a.votos);
 
 if (isMobile) {
   dadosOrdenados = dadosOrdenados.slice(0, 5);
