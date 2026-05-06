@@ -248,48 +248,71 @@ body{
     color: var(--verde);
 }
 
+/* ============================= */
+/* 📱 TABLET (até 900px) */
+/* ============================= */
+@media (max-width: 900px){
+
+    /* HEADER */
+    #top{
+        padding: 15px 20px;
+    }
+
+    #nav1{
+        gap: 15px;
+    }
+
+    /* HERO */
+    #titleprin{
+        font-size: 30px;
+    }
+
+    #txt1{
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    /* CARDS */
+    #tipos{
+        gap: 20px;
+    }
+
+    #tipos div{
+        width: 45%;
+    }
+
+    /* QUIZ */
+    #quiz-box{
+        margin: 40px 20px;
+    }
+}
+
+
+/* ============================= */
+/* 📱 CELULAR (até 600px) */
+/* ============================= */
 @media (max-width: 600px){
+
+    /* HEADER */
     #top{
         flex-direction: column;
+        align-items: center;
+        text-align: center;
         gap: 10px;
         padding: 15px;
     }
 
     #nav1{
         flex-wrap: wrap;
+        justify-content: center;
         gap: 10px;
     }
 
     #nav1 a{
         font-size: 14px;
     }
-}
 
-@media (max-width: 600px){
-    #top{
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    #top1{
-        justify-content: center;
-    }
-
-    #nav1{
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-}
-
-
-@media (max-width: 900px){
-    #titleprin{
-        font-size: 32px;
-    }
-}
-
-@media (max-width: 600px){
+    /* HERO */
     #partprin{
         padding: 60px 15px;
         min-height: auto;
@@ -302,19 +325,9 @@ body{
 
     #txt1{
         font-size: 14px;
-        padding: 0 10px;
-    }
-}
-
-@media (max-width: 600px){
-    #titleprin{
-        font-size: 26px;
     }
 
-    #txt1{
-        font-size: 14px;
-    }
-
+    /* BOTÕES */
     #boto{
         flex-direction: column;
         width: 100%;
@@ -325,15 +338,34 @@ body{
         width: 100%;
         padding: 12px;
     }
-}
 
-/* ===== QUIZ ===== */
-#quiz-box{
-    width: 100%;
-}
+    /* SOBRE */
+    #apresentando{
+        padding: 50px 15px;
+    }
 
-@media (max-width: 600px){
+    #sobre h3{
+        font-size: 22px;
+    }
+
+    #txt2{
+        font-size: 14px;
+        padding: 0 10px;
+    }
+
+    /* CARDS */
+    #tipos{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #tipos div{
+        width: 90%;
+    }
+
+    /* QUIZ */
     #quiz-box{
+        margin: 30px 10px;
         padding: 20px;
     }
 
@@ -348,63 +380,19 @@ body{
 }
 
 
-@media (max-width: 600px){
-    #tipos{
-        flex-direction: column;
-        align-items: center;
+/* ============================= */
+/* 🖥️ TELAS GRANDES (1200px+) */
+/* ============================= */
+@media (min-width: 1200px){
+
+    #titleprin{
+        font-size: 48px;
     }
 
-    #tipos div{
-        width: 90%;
-    }
-}
-
-@media (max-width: 600px){
-    #quiz-box{
-        margin: 30px 10px;
-        padding: 20px;
-    }
-
-    #pergunta{
-        font-size: 16px;
-    }
-
-    #respostas button{
-        font-size: 14px;
+    #txt1{
+        font-size: 18px;
     }
 }
-
-/* ===== SOBRE / CARDS ===== */
-@media (max-width: 900px){
-    #tipos{
-        gap: 20px;
-    }
-
-    #tipos div{
-        width: 45%;
-    }
-}
-
-@media (max-width: 600px){
-    #tipos{
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #tipos div{
-        width: 100%;
-        max-width: 300px;
-    }
-
-    #sobre h3{
-        font-size: 22px;
-    }
-
-    #txt2{
-        font-size: 14px;
-    }
-}
-
 /* ===== BOTÕES ===== */
 button, a{
     transition: all 0.3s ease;
