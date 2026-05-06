@@ -38,6 +38,10 @@
     gap: 10px;
 }
 
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
 #nametitle h2{
     color: var(--azul);
 }
