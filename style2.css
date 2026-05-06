@@ -385,8 +385,13 @@ main {
 .reclamacao-item.yellow .bolinha { background: #eab308; }
 .reclamacao-item.blue .bolinha { background: #3b82f6; }
 
-#simbolo {
-    width: 60px;
+#simbolo{ 
+    width: 60px; 
+    background: transparent;
+    border-radius: 8px;
+        filter: saturate(0.9) contrast(1.05) brightness(0.98) drop-shadow(0 6px 15px rgba(0,0,0,0.12));
+    transition: 0.3s;
+    
 }
 
 #img {
