@@ -394,6 +394,35 @@ body{
     }
 }
 /* ===== BOTÕES ===== */
+
+@media (max-width: 600px){
+
+    #titleprin{
+        font-size: 22px;
+        line-height: 1.2;
+        word-break: break-word;
+    }
+
+    #titleprin-city{
+        display: block;
+        font-size: 20px;
+    }
+
+    #partprin{
+        padding: 50px 15px;
+    }
+}
+
+@media (max-width: 600px){
+    #boto1{
+        font-size: 16px;
+    }
+
+    #boto2{
+        font-size: 15px;
+        opacity: 0.9;
+    }
+}
 button, a{
     transition: all 0.3s ease;
 }
