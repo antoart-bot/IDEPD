@@ -337,12 +337,6 @@ html{
     }
 }
 
-@media (max-width: 768px){
-    #partprin{
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-}
 #top1 i{
     color: #111;
     font-size: 18px;
