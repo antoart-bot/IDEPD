@@ -303,7 +303,7 @@ html{
     }
 }
 
-@media (max-width: 600px){
+@media (max-width: 1024px){
     #partprin{
         background: 
         linear-gradient(to bottom, rgba(255,255,255,0.95) 20%, rgba(0,0,0,0.4)),
