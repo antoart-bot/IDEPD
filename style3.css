@@ -79,10 +79,11 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 120px 20px;
+    padding: 80px 20px;
     text-align: center;
     background: linear-gradient(135deg, #1d4ed8, #16a34a);
     color: white;
+    min-height: 70vh;
 }
 
 #titleprin{
@@ -247,13 +248,20 @@ body{
     color: var(--verde);
 }
 
-@media (max-width: 900px){
+@media (max-width: 600px){
     #top{
-        padding: 15px 20px;
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
     }
 
     #nav1{
-        gap: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    #nav1 a{
+        font-size: 14px;
     }
 }
 
@@ -274,14 +282,27 @@ body{
     }
 }
 
-/* ===== HERO ===== */
-#partprin{
-    min-height: 80vh;
-}
 
 @media (max-width: 900px){
     #titleprin{
         font-size: 32px;
+    }
+}
+
+@media (max-width: 600px){
+    #partprin{
+        padding: 60px 15px;
+        min-height: auto;
+    }
+
+    #titleprin{
+        font-size: 24px;
+        line-height: 1.3;
+    }
+
+    #txt1{
+        font-size: 14px;
+        padding: 0 10px;
     }
 }
 
@@ -297,11 +318,12 @@ body{
     #boto{
         flex-direction: column;
         width: 100%;
+        gap: 15px;
     }
 
     #boto a{
         width: 100%;
-        text-align: center;
+        padding: 12px;
     }
 }
 
@@ -322,6 +344,33 @@ body{
     #respostas button{
         font-size: 14px;
         padding: 10px;
+    }
+}
+
+
+@media (max-width: 600px){
+    #tipos{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #tipos div{
+        width: 90%;
+    }
+}
+
+@media (max-width: 600px){
+    #quiz-box{
+        margin: 30px 10px;
+        padding: 20px;
+    }
+
+    #pergunta{
+        font-size: 16px;
+    }
+
+    #respostas button{
+        font-size: 14px;
     }
 }
 
