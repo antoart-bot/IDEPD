@@ -269,48 +269,218 @@ html{
 }
 
 
-@media (max-width: 1024px) {
-    #partprin {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 40px;
-    }
+/* ============================= */
+/* 📱 RESPONSIVIDADE GERAL */
+/* ============================= */
 
-    #txt1 {
-        width: 100%;
-    }
+/* NOTEBOOK */
+@media screen and (max-width: 1200px){
 
-    #img {
-        width: 100%;
-        margin-top: 30px;
-    }
-
-    #apresentando {
-        flex-direction: column;
-        gap: 40px;
-        padding: 40px;
-    }
-
-    #txt2 {
-        width: 100%;
-    }
-
-    #tipos {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-}
-
-@media (max-width: 1024px){
     #partprin{
-        background: 
-        linear-gradient(to bottom, rgba(255,255,255,0.95) 20%, rgba(0,0,0,0.4)),
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 80px 40px;
+
+        background:
+        linear-gradient(to bottom, rgba(255,255,255,0.96) 30%, rgba(255,255,255,0.4)),
         url('img/PRESIDENTE DUTRA.png') no-repeat center top;
 
         background-size: cover;
     }
+
+    #parta{
+        padding: 20px;
+    }
+
+    #txt1{
+        max-width: 100%;
+        margin: 25px auto 0 auto;
+    }
+
+    #boto{
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    #apresentando{
+        flex-direction: column;
+        gap: 40px;
+        padding: 60px 30px;
+        align-items: center;
+        text-align: center;
+    }
+
+    #txt2{
+        width: 100%;
+        max-width: 700px;
+    }
+
+    #tipos{
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 25px;
+    }
+
+}
+
+
+/* TABLET */
+@media screen and (max-width: 900px){
+
+    #partprin{
+        padding: 70px 25px;
+    }
+
+    #titleprin{
+        font-size: 30px;
+    }
+
+    #txt1{
+        font-size: 15px;
+    }
+
+    #boto{
+        gap: 15px;
+    }
+
+    #boto1,
+    #boto2{
+        min-width: 160px;
+        padding: 15px 22px;
+        font-size: 14px;
+    }
+
+    #tipos div{
+        width: 320px;
+    }
+
+    #tipos div p{
+        width: 100%;
+    }
+
+}
+
+
+/* CELULAR */
+@media screen and (max-width: 600px){
+
+    #container{
+        overflow-x: hidden;
+    }
+
+    #partprin{
+        padding: 60px 15px;
+
+        background:
+        linear-gradient(to bottom, rgba(255,255,255,0.97) 35%, rgba(255,255,255,0.55)),
+        url('img/PRESIDENTE DUTRA.png') no-repeat center top;
+
+        background-size: cover;
+    }
+
+    #parta{
+        width: 100%;
+        padding: 10px;
+    }
+
+    #titleprin{
+        font-size: 22px;
+        line-height: 1.3;
+    }
+
+    #titleprin-city{
+        display: block;
+        font-size: 22px;
+    }
+
+    #txt1{
+        font-size: 14px;
+        line-height: 1.7;
+        margin-top: 20px;
+    }
+
+    /* BOTÕES */
+    #boto{
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+        margin-top: 35px;
+    }
+
+    #boto1,
+    #boto2{
+        width: 100%;
+        min-width: 100%;
+        padding: 14px;
+        font-size: 14px;
+    }
+
+    /* SOBRE */
+    #apresentando{
+        padding: 50px 15px;
+        gap: 30px;
+    }
+
+    #sobre h3{
+        font-size: 22px;
+    }
+
+    #txt2{
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    /* CARDS */
+    #tipos{
+        width: 100%;
+        gap: 18px;
+    }
+
+    #tipos div{
+        width: 100%;
+        padding: 18px;
+    }
+
+    #tipos div h4{
+        font-size: 18px;
+    }
+
+    #tipos div p{
+        font-size: 14px;
+    }
+
+}
+
+
+/* CELULARES PEQUENOS */
+@media screen and (max-width: 380px){
+
+    #partprin{
+        padding: 50px 10px;
+    }
+
+    #titleprin{
+        font-size: 19px;
+    }
+
+    #titleprin-city{
+        font-size: 19px;
+    }
+
+    #txt1{
+        font-size: 13px;
+    }
+
+    #boto1,
+    #boto2{
+        font-size: 13px;
+        padding: 12px;
+    }
+
+    #sobre h3{
+        font-size: 19px;
+    }
+
 }
 
 /* ============================= */
@@ -411,6 +581,7 @@ html{
     }
 
 }
+
 #top1 i{
     color: #111;
     font-size: 18px;
