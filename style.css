@@ -454,9 +454,45 @@ html{
 
 }
 
-@media (max-width: 600px){
+@media screen and (max-width: 600px){
+
+    #apresentando{
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 25px;
+        padding: 40px 20px;
+    }
+
+    #sobre{
+        width: 100%;
+    }
+
+    #txt2{
+        width: 100%;
+        max-width: 100%;
+        font-size: 15px;
+    }
+
+    #tipos{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    #tipos div{
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .galeria{
+        width: 100%;
+        justify-content: center;
+    }
+
     .imggg{
-        width: 100px;
-        height: 75px;
+        width: 90px;
+        height: 70px;
     }
 }
