@@ -33,7 +33,7 @@ html{
     padding: 10px 60px;
     background: #e4e1e1d9;
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(70, 44, 44, 0.05);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -88,8 +88,11 @@ html{
     background: #ffffff;
 }
 #partprin{
+    min-height: 100vh;
     position: relative;
-    display: grid;
+    display: flex;
+    justify-content: left;
+    text-align: justify;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     padding: 100px 60px;
@@ -102,6 +105,7 @@ html{
 #parta{
     letter-spacing: 1px;
     padding: 40px;
+    transform: translateY(-60px); /* 🔥 sobe tudo */
 }
 
 .ativo{
@@ -114,8 +118,8 @@ html{
 
 #titleprin{
     color: var(--azul);
-    font-size: 28px;
-    line-height: 1.3;
+    font-size: 42px;
+    line-height: 1.2;
     font-size: 36px;
     font-weight: 700;
 }
@@ -322,18 +326,25 @@ html{
 
         background:
         linear-gradient(
-            rgba(255,255,255,0.88),
-            rgba(255,255,255,0.88)
+            rgba(255, 255, 255, 0.87),
+            rgba(255, 255, 255, 0.815)
         ),
         url('img/PRESIDENTE DUTRA.png');
 
-        background-position: center;
+        background-position: top;
         background-size: cover;
     }
+    
 
     #parta{
         padding: 0;
         width: 100%;
+        transform: translateY(0); /* 🔥 volta ao normal no celular */
+        backdrop-filter: blur(2px);
+        margin-top:180px; /* 🔥 empurra o texto pra baixo */
+}
+    background: rgba(255,255,255,0.4);
+    border-radius: 20px;
     }
 
     #txt1{
@@ -474,7 +485,7 @@ html{
 @media screen and (max-width: 380px){
 
     #titleprin h1{
-        font-size: 48px;
+        font-size: 18px;
     }
 
     #txt1{
