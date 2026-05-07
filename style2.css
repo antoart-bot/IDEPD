@@ -962,3 +962,28 @@ section {
   }
 
 }
+
+
+@media (max-width: 600px) {
+    #top {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    #nav1 {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #nav1 a {
+        font-size: 14px;
+    }
+
+    #boto {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        margin-top: 30px
+    }
+}
