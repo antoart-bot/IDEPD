@@ -340,9 +340,8 @@ html{
         padding: 0;
         width: 100%;
         transform: translateY(0); /* 🔥 volta ao normal no celular */
-        backdrop-filter: blur(2px);
-        margin-top:180px; /* 🔥 empurra o texto pra baixo */
-}
+         backdrop-filter: blur(2px);
+        margin-top: 190px; /* 🔥 empurra o texto pra baixo */
     background: rgba(255,255,255,0.4);
     border-radius: 20px;
     }
@@ -496,4 +495,24 @@ html{
     #boto2{
         font-size: 14px;
     }
+}
+
+@media screen and (max-width: 380px){
+
+    #top{
+        padding: 12px 10px;
+    }
+
+    #nav1{
+        gap: 8px;
+    }
+
+    #nav1 a{
+        font-size: 12px;
+    }
+
+    #simbolo{
+        width: 42px;
+    }
+
 }
