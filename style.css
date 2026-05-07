@@ -94,8 +94,8 @@ html{
     align-items: center;
     padding: 100px 60px;
     background: 
-        linear-gradient(to right, rgba(255,255,255,0.95) 67%, rgba(0, 0, 0, 0.3)),
-        url('img/PRESIDENTE-DUTRA.png') no-repeat right;
+        linear-gradient(to right, rgba(255,255,255,0.95) 50%, rgba(0, 0, 0, 0.3)),
+        url('img/PRESIDENTE DUTRA.png') no-repeat right;
         background-size: contain;
 }
 

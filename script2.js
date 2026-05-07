@@ -1,7 +1,13 @@
-// 🔥 Firebase
+// 🔥 FIREBASE
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
+import {
+  getDatabase,
+  ref,
+  push
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+// CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyABnSnVlJghgdnZO-PL-cyJBVaS9d29iSI",
   authDomain: "mapa-f6979.firebaseapp.com",
@@ -15,78 +21,178 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// 🧠 Perguntas
+// =========================
+// 🧠 QUIZ MELHORADO
+// =========================
+
 const perguntas = [
+
   {
-    pergunta: "Você descarta o lixo corretamente?",
-    respostas: ["Sempre", "Às vezes", "Nunca"],
+    pergunta: "O que deve ser feito ao encontrar lixo na rua?",
+    respostas: [
+      "Ignorar",
+      "Jogar em outro lugar",
+      "Descartar corretamente"
+    ],
+    correta: 2
+  },
+
+  {
+    pergunta: "Qual atitude ajuda a melhorar a cidade?",
+    respostas: [
+      "Denunciar problemas urbanos",
+      "Espalhar lixo",
+      "Destruir espaços públicos"
+    ],
     correta: 0
   },
+
   {
-    pergunta: "Você denuncia problemas da sua cidade?",
-    respostas: ["Sim", "Às vezes", "Nunca"],
+    pergunta: "O descarte irregular pode causar:",
+    respostas: [
+      "Alagamentos",
+      "Melhoria das ruas",
+      "Mais limpeza"
+    ],
     correta: 0
   },
+
   {
-    pergunta: "Você ajuda a manter sua rua limpa?",
-    respostas: ["Sim", "Mais ou menos", "Não"],
+    pergunta: "Como ajudar sua comunidade?",
+    respostas: [
+      "Participando de ações sociais",
+      "Ignorando problemas",
+      "Danificando patrimônio"
+    ],
     correta: 0
   },
+
   {
-    pergunta: "Você já participou de alguma ação comunitária?",
-    respostas: ["Sim", "Não"],
-    correta: 0
-  },
-  {
-    pergunta: "Você acredita que pode melhorar sua cidade?",
-    respostas: ["Sim", "Talvez", "Não"],
+    pergunta: "O que significa conscientização?",
+    respostas: [
+      "Ter responsabilidade com a cidade",
+      "Não cuidar do espaço público",
+      "Fazer vandalismo"
+    ],
     correta: 0
   }
+
 ];
 
-let atual = 0;
-let pontos = 0;
+// =========================
+// VARIÁVEIS
+// =========================
 
-// Elementos
+let perguntaAtual = 0;
+let pontos = 0;
+let respondeu = false;
+
+// ELEMENTOS
 const perguntaEl = document.getElementById("pergunta");
 const respostasEl = document.getElementById("respostas");
 const proximoBtn = document.getElementById("proximo");
 const resultadoEl = document.getElementById("resultado");
 
-// Mostrar pergunta
+// =========================
+// MOSTRAR PERGUNTA
+// =========================
+
 function mostrarPergunta() {
+
+  respondeu = false;
+
+  proximoBtn.style.display = "none";
+
   respostasEl.innerHTML = "";
-  perguntaEl.innerText = perguntas[atual].pergunta;
 
-  perguntas[atual].respostas.forEach((resposta, i) => {
-    const btn = document.createElement("button");
-    btn.innerText = resposta;
+  const pergunta = perguntas[perguntaAtual];
 
-    btn.onclick = () => {
-      if (i === perguntas[atual].correta) {
-        pontos++;
-      }
-      proximoBtn.style.display = "block";
-    };
+  perguntaEl.innerHTML = `
+    <span>
+      ${perguntaAtual + 1}/${perguntas.length}
+    </span>
 
-    respostasEl.appendChild(btn);
+    <h3>${pergunta.pergunta}</h3>
+  `;
+
+  pergunta.respostas.forEach((resposta, index) => {
+
+    const button = document.createElement("button");
+
+    button.innerText = resposta;
+
+    button.classList.add("resposta-btn");
+
+    button.onclick = () => selecionarResposta(button, index);
+
+    respostasEl.appendChild(button);
+
   });
+
 }
 
-// Próxima pergunta
-proximoBtn.onclick = () => {
-  atual++;
+// =========================
+// SELECIONAR RESPOSTA
+// =========================
 
-  if (atual < perguntas.length) {
-    mostrarPergunta();
-    proximoBtn.style.display = "none";
-  } else {
-    finalizarQuiz();
+function selecionarResposta(button, index) {
+
+  if (respondeu) return;
+
+  respondeu = true;
+
+  const correta = perguntas[perguntaAtual].correta;
+
+  const botoes = document.querySelectorAll(".resposta-btn");
+
+  botoes.forEach((btn, i) => {
+
+    btn.disabled = true;
+
+    if (i === correta) {
+      btn.style.background = "#16a34a";
+    }
+
+    if (i === index && i !== correta) {
+      btn.style.background = "#dc2626";
+    }
+
+  });
+
+  if (index === correta) {
+    pontos++;
   }
+
+  proximoBtn.style.display = "block";
+
+}
+
+// =========================
+// PRÓXIMA
+// =========================
+
+proximoBtn.onclick = () => {
+
+  perguntaAtual++;
+
+  if (perguntaAtual < perguntas.length) {
+
+    mostrarPergunta();
+
+  } else {
+
+    finalizarQuiz();
+
+  }
+
 };
 
-// Finalizar
+// =========================
+// FINALIZAR
+// =========================
+
 function finalizarQuiz() {
+
   perguntaEl.style.display = "none";
   respostasEl.style.display = "none";
   proximoBtn.style.display = "none";
@@ -94,29 +200,63 @@ function finalizarQuiz() {
   resultadoEl.style.display = "block";
 
   let mensagem = "";
+  let emoji = "";
 
-  if (pontos >= 4) {
-    mensagem = "👏 Você é muito consciente!";
-  } else if (pontos >= 2) {
-    mensagem = "👍 Você está no caminho certo!";
+  if (pontos === 5) {
+
+    emoji = "🏆";
+    mensagem = "Excelente! Você realmente se preocupa com sua cidade.";
+
+  } else if (pontos >= 3) {
+
+    emoji = "👏";
+    mensagem = "Muito bem! Você está no caminho certo.";
+
   } else {
-    mensagem = "⚠️ Você pode melhorar sua conscientização!";
+
+    emoji = "⚠️";
+    mensagem = "Você pode melhorar sua conscientização.";
+
   }
 
   resultadoEl.innerHTML = `
-    <h3>Você fez ${pontos} de ${perguntas.length} pontos</h3>
-    <p>${mensagem}</p>
+
+    <div class="resultado-final">
+
+      <h2>${emoji}</h2>
+
+      <h3>
+        Você acertou ${pontos} de ${perguntas.length}
+      </h3>
+
+      <p>${mensagem}</p>
+
+    </div>
+
   `;
 
-  // salvar no Firebase
+  // 🔥 SALVAR FIREBASE
+
   const quizRef = ref(db, "quizResultados");
 
   push(quizRef, {
+
     pontos: pontos,
     total: perguntas.length,
-    data: new Date().toLocaleString()
+    porcentagem: ((pontos / perguntas.length) * 100).toFixed(0) + "%",
+
+    data: new Date().toLocaleString("pt-BR")
+
   });
+
+  // REINICIAR
+
+  document
+    .getElementById("reiniciarQuiz")
+    .onclick = reiniciarQuiz;
+
 }
 
-// iniciar
+
+// INICIAR
 mostrarPergunta();
