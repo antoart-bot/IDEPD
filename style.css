@@ -325,7 +325,6 @@ html{
     #partprin{
         grid-template-columns: 1fr;
         text-align: center;
-
         padding: 70px 25px;
 
         background:
@@ -352,18 +351,28 @@ html{
         flex-direction: column;
         gap: 40px;
         padding: 50px 25px;
+        align-items: center;
+        text-align: center;
     }
 
     #txt2{
         width: 100%;
+        max-width: 100%;
     }
 
     #tipos{
+        display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        gap: 20px;
     }
 
+    #tipos div{
+        width: 100%;
+        max-width: 300px;
+    }
 }
+
 
 @media screen and (max-width: 600px){
 
@@ -425,36 +434,7 @@ html{
         padding: 16px;
     }
 
-    #tipos{
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-    #tipos div{
-        max-width: 340px;
-    }
-
-}
-
-@media screen and (max-width: 380px){
-
-    #titleprin h1{
-        font-size: 48px;
-    }
-
-    #txt1{
-        font-size: 14px;
-    }
-
-    #boto1,
-    #boto2{
-        font-size: 14px;
-    }
-
-}
-
-@media screen and (max-width: 600px){
+    /* 👇 PARTE QUE TAVA BUGANDO (AGORA CORRIGIDA) */
 
     #apresentando{
         flex-direction: column;
@@ -476,14 +456,14 @@ html{
 
     #tipos{
         display: flex;
-        flex-wrap: wrap;
         justify-content: center;
+        flex-wrap: wrap;
         gap: 15px;
     }
 
     #tipos div{
         width: 100%;
-        max-width: 320px;
+        max-width: 300px;
     }
 
     .galeria{
@@ -494,5 +474,22 @@ html{
     .imggg{
         width: 90px;
         height: 70px;
+    }
+}
+
+
+@media screen and (max-width: 380px){
+
+    #titleprin h1{
+        font-size: 48px;
+    }
+
+    #txt1{
+        font-size: 14px;
+    }
+
+    #boto1,
+    #boto2{
+        font-size: 14px;
     }
 }
