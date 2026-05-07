@@ -187,7 +187,8 @@ html{
 
 #apresentando{
     display: flex;
-    justify-content: right;
+    justify-content: center;
+    gap: 60px;
     padding: 28px 100px 0 120px ;
     max-width: 1200px;
     margin: auto;
@@ -205,19 +206,23 @@ html{
     margin-right: 10px;
     color: #22c55e;
     font-size: 1.3em;
+    margin-right: 5px;
 }
 
 #txt2{
     color: var(--preto);
 
     font-size: 0.95em;
-    width: 500px;
+    width: 400px;
     line-height: 1.6;
 }
 
 #tipos{
-    display: flex;
-    gap: 60px;
+    display: grid;
+    grid-template-columns: repeat(3, 230px);
+    justify-content: center;
+    
+    gap: 20px;
 }
 
 #tipos div{
@@ -236,12 +241,15 @@ html{
 
 #tipos div h4{
     color: var(--azul);
-    font-size: 1.3em;
+     font-size: 16px;
 }
 
 #tipos div p{
-    width: 250px;
+    width: 100%;
     color: #6b7280;
+    font-size: 14px;
+    line-height: 1.4;
+    word-break: break-word; /* 👈 evita estourar */
 }
 
 
@@ -268,9 +276,49 @@ html{
     transform: scale(1.05);
 }
 
-/* ============================= */
-/* 📱 RESPONSIVIDADE TOTAL */
-/* ============================= */
+
+.imggg{
+    width: 120px;
+    height: 90px;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 2px solid rgba(0,0,0,0.08);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.imggg:hover{
+    transform: scale(1.05);
+}
+
+.galeria{
+    width: 100%; /* 👈 força ir pra baixo */
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 20px;
+
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+}
+
+#tipos > div:not(.galeria){
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.galeria{
+    grid-column: 1 / -1;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 
 @media screen and (max-width: 1024px){
 
@@ -317,14 +365,8 @@ html{
 
 }
 
-
-/* ============================= */
-/* 📱 CELULAR */
-/* ============================= */
-
 @media screen and (max-width: 600px){
 
-    /* HEADER */
     #top{
         flex-direction: column;
         gap: 15px;
@@ -345,7 +387,6 @@ html{
         font-size: 14px;
     }
 
-    /* HERO */
     #partprin{
         padding: 60px 18px;
         min-height: auto;
@@ -370,7 +411,6 @@ html{
         margin-top: 20px;
     }
 
-    /* BOTÕES */
     #boto{
         flex-direction: column;
         align-items: center;
@@ -385,7 +425,6 @@ html{
         padding: 16px;
     }
 
-    /* CARDS */
     #tipos{
         flex-direction: column;
         align-items: center;
@@ -393,16 +432,10 @@ html{
     }
 
     #tipos div{
-        width: 100%;
         max-width: 340px;
     }
 
 }
-
-
-/* ============================= */
-/* 📱 CELULARES PEQUENOS */
-/* ============================= */
 
 @media screen and (max-width: 380px){
 
@@ -419,4 +452,11 @@ html{
         font-size: 14px;
     }
 
+}
+
+@media (max-width: 600px){
+    .imggg{
+        width: 100px;
+        height: 75px;
+    }
 }
