@@ -963,27 +963,101 @@ section {
 
 }
 
+/* ============================= */
+/* 📱 HEADER RESPONSIVO */
+/* ============================= */
 
-@media (max-width: 600px) {
-    #top {
-        flex-direction: column;
-        gap: 15px;
-        padding: 20px;
+/* NOTEBOOK */
+@media screen and (max-width: 1200px){
+
+    #top{
+        padding: 12px 35px;
     }
 
-    #nav1 {
+    #nav1{
+        gap: 16px;
+    }
+
+}
+
+
+/* TABLET */
+@media screen and (max-width: 900px){
+
+    #top{
+        padding: 12px 20px;
+    }
+
+    #nav1{
+        gap: 12px;
+    }
+
+    #nav1 a{
+        font-size: 15px;
+    }
+
+    #simbolo{
+        width: 52px;
+    }
+
+}
+
+
+/* CELULAR */
+@media screen and (max-width: 600px){
+
+    #top{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        gap: 12px;
+
+        padding: 14px 15px;
+
+        text-align: center;
+    }
+
+    #top1{
+        justify-content: center;
+        flex-direction: row;
+    }
+
+    #nav1{
         flex-wrap: wrap;
         justify-content: center;
+
+        gap: 10px;
     }
 
-    #nav1 a {
+    #nav1 a{
         font-size: 14px;
     }
 
-    #boto {
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-        margin-top: 30px
+    #simbolo{
+        width: 48px;
     }
+
+}
+
+
+/* CELULARES PEQUENOS */
+@media screen and (max-width: 380px){
+
+    #top{
+        padding: 12px 10px;
+    }
+
+    #nav1{
+        gap: 8px;
+    }
+
+    #nav1 a{
+        font-size: 12px;
+    }
+
+    #simbolo{
+        width: 42px;
+    }
+
 }
