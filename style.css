@@ -341,10 +341,8 @@ html{
         width: 100%;
         transform: translateY(0); /* 🔥 volta ao normal no celular */
         backdrop-filter: blur(2px);
-        margin-top: clamp(120px, 25vh, 180px);
         background: rgba(255,255,255,0.4);
         border-radius: 20px;
-        background-position: 50% 20%;
     }
 
     #txt1{
