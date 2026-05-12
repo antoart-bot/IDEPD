@@ -1,6 +1,8 @@
 let marcadorSelecionado = null;
 let map;
 let markersLayer;
+let markersUsuarios;
+let markersFixos;
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, set, onValue, push } 
@@ -32,23 +34,110 @@ const pontos = [
 // 🚀 INICIAR
 window.addEventListener("load", () => {
 
+  
   // 🗺️ MAPA
-  map = L.map('map', { zoomControl: false })
-    .setView([-5.300, -44.490], 14);
+map = L.map('map', {
+  zoomControl: false,
+  maxZoom: 25,
+  minZoom: 3,
+  zoomSnap: 0.25,
+  zoomDelta: 0.25
+}).setView([-5.300, -44.490], 18); // 👈 já começa bem perto
+    
+    function criarIcone(problema) {
+  let cor = "#16a34a";
+  let emoji = "📍";
+
+  if (problema === "buraco") {
+    cor = "#dc2626";
+    emoji = "🚧";
+  }
+
+  if (problema === "luz") {
+    cor = "#eab308";
+    emoji = "💡";
+  }
+
+  if (problema === "lixo") {
+    cor = "#2563eb";
+    emoji = "🗑️";
+  }
+
+  return L.divIcon({
+    className: '',
+    html: `
+      <div style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: ${cor};
+        border-radius: 50%;
+        color: white;
+        font-size: 16px;
+        box-shadow: 0 0 6px rgba(0,0,0,0.3);
+      ">
+        ${emoji}
+      </div>
+    `,
+    iconSize: [28, 28]
+  });
+}
+
+map.on("click", function(e) {
+
+  const lat = e.latlng.lat;
+  const lng = e.latlng.lng;
+
+  L.popup()
+    .setLatLng([lat, lng])
+.setContent(`
+  <div class="popup-form">
+
+    <label>Tipo do problema</label>
+    <select id="tipoProblema">
+      <option>Segurança</option>
+      <option>Iluminação</option>
+      <option>Infraestrutura</option>
+      <option>Limpeza</option>
+    </select>
+
+    <label>Descrição</label>
+    <textarea id="descricaoProblema" placeholder="Descreva o problema"></textarea>
+
+    <button onclick="salvarPonto(${lat}, ${lng})">
+      Salvar
+    </button>
+
+  </div>
+`)
+    .openOn(map);
+});
+
 
   L.control.zoom({ position: 'topright' }).addTo(map);
 
   const normal = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-  const satelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}');
+const satelite = L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  {
+    maxZoom: 22,
+    maxNativeZoom: 19
+  }
+);
 
   L.control.layers({
     "Mapa normal": normal,
     "Satélite": satelite
   }).addTo(map);
 
-  satelite.addTo(map);
+  normal.addTo(map);
 
-  markersLayer = L.layerGroup().addTo(map);
+  markersUsuarios = L.layerGroup().addTo(map);
+  markersFixos = L.layerGroup().addTo(map);
+
+  carregarPontosUsuarios(); 
 
   setTimeout(() => map.invalidateSize(), 500);
 
@@ -79,6 +168,62 @@ push(ref(db, "reclamacoes"), {
   }
 
 });
+
+window.salvarPonto = function(lat, lng) {
+
+  const tipo = document.getElementById("tipoProblema").value;
+  const descricao = document.getElementById("descricaoProblema").value;
+
+  // cria marcador NA HORA
+  L.marker([lat, lng], {
+    icon: criarIconeTipo(tipo)
+  })
+    .addTo(markersUsuarios) // ✅ CORRIGIDO
+    .bindPopup(tipo + " - " + descricao);
+
+  // salva no firebase
+  push(ref(db, "pontosUsuarios"), {
+    lat: lat,
+    lng: lng,
+    tipo: tipo,
+    descricao: descricao
+  });
+
+  alert("Salvo!");
+};
+
+function carregarPontosUsuarios() {
+
+  const pontosRef = ref(db, "pontosUsuarios");
+
+  onValue(pontosRef, (snapshot) => {
+    console.log("dados:", snapshot.val());
+    markersUsuarios.clearLayers();
+
+    const dados = snapshot.val();
+
+    if (!dados) {
+      console.log("Nenhum ponto encontrado");
+      return;
+    }
+
+    Object.values(dados).forEach((p) => {
+
+      const marker = L.marker([p.lat, p.lng], {
+        icon: criarIconeTipo(p.tipo)
+      });
+
+      marker
+        .addTo(markersUsuarios)
+        .bindPopup(p.tipo + " - " + p.descricao);
+
+    });
+
+  }, (erro) => {
+    console.error("Erro Firebase:", erro);
+  });
+
+}
 
 // 👍 VOTAR
 window.votar = function(index) {
@@ -121,33 +266,48 @@ function criarIcone(cor) {
 
 function criarIconeTipo(tipo) {
 
-  let emoji = "📍";
+  let cor = "#22c55e";
 
-  if (tipo === "Segurança") emoji = "🚨";
-  if (tipo === "Iluminação") emoji = "💡";
-  if (tipo === "Infraestrutura") emoji = "🕳️";
-  if (tipo === "Limpeza") emoji = "🧹";
+  if (tipo === "Segurança") cor = "#ef4444";
+  if (tipo === "Iluminação") cor = "#facc15";
+  if (tipo === "Infraestrutura") cor = "#3b82f6";
+  if (tipo === "Limpeza") cor = "#10b981";
 
   return L.divIcon({
-    className: "marker-wrapper",
+    className: '',
     html: `
-      <div style="
-        font-size: 20px;
-        background: #0b1224;
-        padding: 6px 10px;
-        border-radius: 10px;
-        border: 1px solid rgba(255,255,255,0.1);
-      ">
-        ${emoji}
+      <div style="position: relative; width: 10px; height: 10px;">
+        
+        <div style="
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          background: ${cor};
+          border-radius: 50%;
+          z-index: 2;
+        "></div>
+
+        <div style="
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          background: ${cor};
+          border-radius: 50%;
+          opacity: 0.3;
+          top: -5px;
+          left: -5px;
+          animation: pulse 1.5s infinite;
+        "></div>
+
       </div>
-    `
+    `,
+    iconSize: [20, 20]
   });
 }
 
-
 function atualizarMapa() {
 
-  markersLayer.clearLayers();
+  markersFixos.clearLayers();
 
   let total = pontos.reduce((soma, p) => soma + p.votos, 0);
 
@@ -160,7 +320,7 @@ function atualizarMapa() {
     L.marker(p.coords, {
       icon: criarIcone(p.cor)
     })
-    .addTo(markersLayer)
+    .addTo(markersFixos)
     .bindPopup(`
       <div class="popup">
         <strong>${p.rua}</strong>
@@ -350,8 +510,4 @@ const votos = dadosOrdenados.map(p => p.votos);
 
     
   });
-}
-
-if (isMobile) {
-  dadosOrdenados = dadosOrdenados.slice(0, 5);
 }

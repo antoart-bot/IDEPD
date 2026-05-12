@@ -97,7 +97,7 @@ html{
     align-items: center;
     padding: 100px 60px;
     background: 
-        linear-gradient(to right, rgba(255,255,255,0.95) 50%, rgba(0, 0, 0, 0.3)),
+        linear-gradient(to right, rgba(255,255,255,0.95) 35%, rgba(0, 0, 0, 0.3)),
         url('img/PRESIDENTE DUTRA.png') no-repeat right;
         background-size: contain;
 }
@@ -194,7 +194,7 @@ html{
     justify-content: center;
     gap: 60px;
     padding: 28px 100px 0 120px ;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: auto;
     padding: 60px 40px;
     align-items: flex-start;
@@ -282,34 +282,84 @@ html{
 
 
 .imggg{
-    width: 120px;
-    height: 90px;
-    object-fit: contain;
-    border-radius: 10px;
-    border: 2px solid rgba(0,0,0,0.08);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    transition: 0.3s;
+    width: 180px;
+    height: 180px; /* 🔥 altura fixa */
+    object-fit: cover; /* 🔥 mantém proporção sem distorcer */
+    border-radius: 12px;
+    flex-shrink: 0;
+    scroll-snap-align: center; /* 🔥 encaixe bonito no scroll */
 }
 
 .imggg:hover{
-    transform: scale(1.05);
+    transform: scale(1.08) translateY(-5px);
+
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.25),
+        0 8px 20px rgba(0,0,0,0.15);
 }
 
+
 .galeria{
-    width: 100%; /* 👈 força ir pra baixo */
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
     gap: 12px;
-    margin-top: 20px;
-    background: transparent;
-    box-shadow: none;
-    padding: 0;
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
+
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+
+    padding: 10px 15px;
+    margin: 20px auto;
+
+    max-width: 900px;
+}
+
+.leaflet-popup-content .popup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 220px;
+}
+
+
+
+/* LABEL */
+.leaflet-popup-content .popup-form label {
+  font-size: 12px;
+  color: #374151;
+}
+
+/* INPUTS */
+.leaflet-popup-content .popup-form select,
+.leaflet-popup-content .popup-form textarea {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  background: #fff;
+  color: #000;
+}
+
+/* TEXTAREA */
+.leaflet-popup-content .popup-form textarea {
+  resize: none;
+  height: 70px;
+}
+
+
+
+/* BOTÃO */
+.leaflet-popup-content .popup-form button {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #16a34a;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* HOVER */
+.leaflet-popup-content .popup-form button:hover {
+  background: #15803d;
 }
 
 #tipos > div:not(.galeria){
@@ -501,15 +551,6 @@ html{
         max-width: 320px;
     }
 
-    .galeria{
-        width: 100%;
-        justify-content: center;
-    }
-
-    .imggg{
-        width: 90px;
-        height: 70px;
-    }
 }
 
 
@@ -617,6 +658,37 @@ html{
 
     #simbolo{
         width: 48px;
+    }
+
+}
+
+
+/* 📱 CELULAR PEQUENO */
+@media (max-width: 400px){
+
+    .imggg{
+        width: 120px;
+        height: 80px;
+    }
+
+
+}
+
+
+@media (max-width: 600px){
+
+    .galeria{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+
+        overflow-x: hidden;
+    }
+
+    .imggg{
+        width: 100%;
+        height: 120px; /* 🔥 deixa a imagem natural */
+        object-fit: cover; /* 🔥 garante que não corta */
     }
 
 }
