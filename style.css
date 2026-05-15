@@ -130,6 +130,7 @@ html{
 
 #txt1{
     color: var(--preto);
+    backdrop-filter: blur(2px);
     max-width: 600px;
     margin-top: 30px;
     line-height: 1.6;
@@ -137,6 +138,53 @@ html{
     opacity: 0.85;
 }
 
+#graficoContainer{
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+
+    background: #ffffff;
+    border-radius: 18px;
+
+    padding: 14px 12px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* 🔥 altura ideal pro gráfico */
+#graficoVotos{
+    width: 100% !important;
+    height: 260px !important;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  70% {
+    transform: scale(2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* 📱 CELULAR */
+@media (max-width: 600px){
+
+    #graficoContainer{
+        margin: 15px 10px;
+        padding: 12px 10px;
+        border-radius: 16px;
+    }
+
+    #graficoVotos{
+        height: 240px !important;
+    }
+}
 
 #boto{
     margin-top: 60px;
@@ -389,9 +437,7 @@ html{
     #parta{
         padding: 0;
         width: 100%;
-        transform: translateY(0); /* 🔥 volta ao normal no celular */
-        backdrop-filter: blur(2px);
-        background: rgba(255,255,255,0.4);
+        transform: translateY(0);
         border-radius: 20px;
     }
 
@@ -452,6 +498,11 @@ html{
     #partprin{
         padding: 60px 18px;
         min-height: auto;
+            background: 
+        linear-gradient(rgba(255,255,255,0.95) 15%, rgba(0, 0, 0, 0.3)),
+        url('img/PRESIDENTE DUTRA.png') no-repeat right;
+        background-size: 210%;
+        background-position:center;
     }
 
     #titleprin{

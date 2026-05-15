@@ -22,28 +22,134 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 const pontos = [
-  { coords: [-5.3027, -44.4895], rua: "Av. José Olavo Sampaio", problema: "Problemas relatados", cor: "red", votos: 0 },
-  { coords: [-5.2970, -44.4893], rua: "R. Graçaranha", problema: "Problemas relatados", cor: "yellow", votos: 0 },
-  { coords: [-5.3063, -44.4896], rua: "R. Pedro Gualter", problema: "Problemas relatados", cor: "blue", votos: 0 },
-  { coords: [-5.3130, -44.4918], rua: "Av. Antônio Bom", problema: "Problemas relatados", cor: "red", votos: 0 },
-  { coords: [-5.2871, -44.4926], rua: "R. Getúlio Vargas", problema: "Problemas relatados", cor: "yellow", votos: 0 },
-  { coords: [-5.2883, -44.4978], rua: "R. Eneas Sampaio", problema: "Problemas relatados", cor: "blue", votos: 0 },
-  { coords: [-5.2898, -44.4984], rua: "R. Adalberto de Macedo", problema: "Problemas relatados", cor: "red", votos: 0 }
-];
 
+  // 🔴 AVENIDAS / BRs
+  {
+    coords: [-5.295101262486362, -44.49662850346243],
+    rua: "Avenida Tancredo Neves",
+    problema: "⚠️ Fluxo intenso e pouca sinalização. Redobre a atenção.",
+    cor: "red",
+    votos: 0
+  },
+  {
+    coords: [-5.2913331723096215, -44.49343273945068],
+    rua: "Avenida Olavo Sampaio",
+    problema: "🚨 Alto movimento de veículos e pedestres. Risco de acidentes.",
+    cor: "red",
+    votos: 0
+  },
+  {
+    coords: [-5.304294217064379, -44.48944383231806],
+    rua: "Avenida Campo Dantas",
+    problema: "⚠️ Buracos e pouca iluminação. Trafegue com cuidado.",
+    cor: "red",
+    votos: 0
+  },
+  {
+    coords: [-5.303800519564994, -44.49618541697438],
+    rua: "Avenida Costa e Silva",
+    problema: "🚨 Via com buracos e grande movimentação. Atenção redobrada.",
+    cor: "red",
+    votos: 0
+  },
+  {
+    coords: [-5.282648829807214, -44.49116045930247],
+    rua: "Avenida Alderico Guimarães",
+    problema: "⚠️ Pista irregular e sem sinalização adequada.",
+    cor: "red",
+    votos: 0
+  },
+  {
+    coords: [-5.281997574034968, -44.49611622592999],
+    rua: "Avenida Idalgo Martins Silveira (rotatória)",
+    problema: "🚨 Rotatória com fluxo intenso. Dirija com cautela.",
+    cor: "red",
+    votos: 0
+  },
+  {
+    coords: [-5.317850386907172, -44.48316844287506],
+    rua: "BR-135",
+    problema: "⛔ Tráfego intenso e sinalização precária. Alto risco.",
+    cor: "red",
+    votos: 0
+  },
+  {
+    coords: [-5.296697229972227, -44.47739374304615],
+    rua: "BR-226",
+    problema: "🚨 Semáforos ausentes e grande movimentação. Atenção máxima.",
+    cor: "red",
+    votos: 0
+  },
+
+ {
+  coords: [-5.289550882324903, -44.49256064766194],
+  rua: "Rua Vitorino Lucena",
+  problema: "⚠️ Problemas urbanos relatados. Atenção ao trafegar.",
+  cor: "#facc15", // 🟡 leve
+  votos: 0
+},
+{
+  coords: [-5.286589075106344, -44.48855911884127],
+  rua: "Rua Ladislau Moreira",
+  problema: "⚠️ Problemas urbanos relatados. Atenção ao trafegar.",
+  cor: "#f97316", // 🟠 médio
+  votos: 0
+},
+{
+  coords: [-5.289627116071776, -44.490863618825784],
+  rua: "Rua Adalto Cruz",
+  problema: "⚠️ Problemas urbanos relatados. Atenção ao trafegar.",
+  cor: "#fb923c", // 🟠 médio suave
+  votos: 0
+},
+{
+  coords: [-5.28285774664263, -44.49288348813834],
+  rua: "Rua Magalhães de Almeida",
+  problema: "⚠️ Problemas urbanos relatados. Atenção ao trafegar.",
+  cor: "#38bdf8", // 🔵 neutro
+  votos: 0
+},
+{
+  coords: [-5.29705513242832, -44.49214391512271],
+  rua: "Rua Mário Pereira",
+  problema: "⚠️ Problemas urbanos relatados. Atenção ao trafegar.",
+  cor: "#facc15", // 🟡 leve
+  votos: 0
+},
+{
+  coords: [-5.30077511178637, -44.48714210275003],
+  rua: "Rua Raimundo França (Campo Dantas)",
+  problema: "⚠️ Problemas urbanos relatados. Atenção ao trafegar.",
+  cor: "#4ade80", // 🟢 tranquilo
+  votos: 0
+}
+
+];
 // 🚀 INICIAR
 window.addEventListener("load", () => {
 
+  const limites = [
+  [-5.2828, -44.4928], // canto superior
+  [-5.3007, -44.4871]  // canto inferior
+];
   
   // 🗺️ MAPA
+// 🗺️ MAPA
 map = L.map('map', {
   zoomControl: false,
   maxZoom: 25,
   minZoom: 3,
   zoomSnap: 0.25,
   zoomDelta: 0.25
-}).setView([-5.300, -44.490], 18); // 👈 já começa bem perto
-    
+});
+
+// 🔥 calcula limites baseado nas ruas
+const bounds = L.latLngBounds(pontos.map(p => p.coords));
+
+// 🔥 aplica o zoom automático
+map.fitBounds(bounds, {
+  padding: [30, 30] // espaço nas bordas (fica bonito)
+});
     function criarIcone(problema) {
   let cor = "#16a34a";
   let emoji = "📍";
@@ -100,7 +206,6 @@ map.on("click", function(e) {
       <option>Segurança</option>
       <option>Iluminação</option>
       <option>Infraestrutura</option>
-      <option>Limpeza</option>
     </select>
 
     <label>Descrição</label>
@@ -255,15 +360,41 @@ function carregarVotosFirebase() {
 // 🎯 ICONE
 function criarIcone(cor) {
   return L.divIcon({
-    className: "marker-wrapper",
+    className: '',
     html: `
-      <div class="marker-pulse marker-${cor}">
-        <div class="marker-core"></div>
+      <div style="
+        position: relative;
+        width: 10px;
+        height: 10px;
+      ">
+        <!-- núcleo -->
+        <div style="
+          width: 12px;
+          height: 12px;
+          background: ${cor};
+          border-radius: 50%;
+          position: absolute;
+          top: 1px;
+          left: 1px;
+          border: 2px solid white;
+        "></div>
+
+        <!-- halo discreto -->
+        <div style="
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background: ${cor};
+          opacity: 0.15;
+          position: absolute;
+          top: -2px;
+          left: -2px;
+        "></div>
       </div>
-    `
+    `,
+    iconSize: [14, 14]
   });
 }
-
 function criarIconeTipo(tipo) {
 
   let cor = "#22c55e";
@@ -430,14 +561,15 @@ function atualizarGrafico() {
 
   const ctx = canvas.getContext('2d');
 
-let dadosOrdenados = [...pontos].sort((a, b) => b.votos - a.votos);
+  let dadosOrdenados = [...pontos]
+    .sort((a, b) => b.votos - a.votos)
+    .slice(0, 6); // 🔥 TOP 6
 
-if (window.innerWidth < 768) {
-  dadosOrdenados = dadosOrdenados.slice(0, 5);
-}
+  const nomes = dadosOrdenados.map(p => 
+    p.rua.length > 20 ? p.rua.slice(0, 20) + "..." : p.rua
+  );
 
-const nomes = dadosOrdenados.map(p => p.rua);
-const votos = dadosOrdenados.map(p => p.votos);
+  const votos = dadosOrdenados.map(p => p.votos);
 
   if (grafico) {
     grafico.destroy();
@@ -447,67 +579,93 @@ const votos = dadosOrdenados.map(p => p.votos);
     type: 'bar',
     data: {
       labels: nomes,
-    datasets: [{
-      label: 'Votos',
-      data: votos,
-      borderRadius: 8,
-      borderSkipped: false,
+      datasets: [{
+        label: 'Votos',
+        data: votos,
+        hoverBackgroundColor: "#dc2626",
 
-      backgroundColor: votos.map((v, i) => {
-        if (i === 0) return "#16a34a"; // 🥇 verde forte
-    if (i === 1) return "#22c55e"; // 🥈 verde médio
-    if (i === 2) return "#4ade80"; // 🥉 verde claro
-    return "#93c5fd"; // resto azul claro
-  })
-}]
+        borderRadius: 12,
+        borderSkipped: false,
+        barThickness: window.innerWidth < 600 ? 16 : 22,
+
+        // 🎨 GRADIENTE PROFISSIONAL
+        backgroundColor: function(context) {
+          const chart = context.chart;
+          const {ctx, chartArea} = chart;
+
+          if (!chartArea) return;
+
+          const gradient = ctx.createLinearGradient(0, 0, 300, 0);
+
+          gradient.addColorStop(0, "#ef4444"); // vermelho forte
+          gradient.addColorStop(1, "#fca5a5"); // vermelho claro
+
+          return gradient;
+        }
+      }]
     },
-    options: {
+
+options: {
   responsive: true,
   maintainAspectRatio: false,
 
-  indexAxis: window.innerWidth < 768 ? 'y' : 'x',
+  indexAxis: 'y',
+
+  layout: {
+    padding: {
+      top: 5,
+      bottom: 5,
+      left: 5,
+      right: 10
+    }
+  },
 
   scales: {
     x: {
+      beginAtZero: true,
       ticks: {
-        color: "#374151", // texto escuro
+        color: "#6b7280",
         font: {
-          size: window.innerWidth < 768 ? 10 : 14,
-          weight: "500"
+          size: window.innerWidth < 600 ? 10 : 12
         }
       },
       grid: {
-        color: "#e5e7eb" // grid claro
+        color: "rgba(0,0,0,0.05)"
       }
     },
+
     y: {
       ticks: {
-        color: "#374151",
+        color: "#111827",
         font: {
-          size: window.innerWidth < 768 ? 10 : 12
+          size: window.innerWidth < 600 ? 11 : 13,
+          weight: "600"
         }
       },
       grid: {
-        color: "#e5e7eb"
+        display: false
       }
     }
   },
 
-  
   plugins: {
     legend: {
       display: false
     },
+
     tooltip: {
       backgroundColor: "#111827",
       titleColor: "#fff",
       bodyColor: "#fff",
       padding: 10,
-      cornerRadius: 8
+      cornerRadius: 10,
+      displayColors: false
     }
+  },
+
+  animation: {
+    duration: 1000
   }
 }
-
-    
   });
 }
