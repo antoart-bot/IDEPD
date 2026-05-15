@@ -26,42 +26,42 @@ const pontos = [
   // 🔴 AVENIDAS / BRs
   {
     coords: [-5.295101262486362, -44.49662850346243],
-    rua: "Avenida Tancredo Neves",
+    rua: "Av. Tancredo Neves",
     problema: "⚠️ Fluxo intenso e pouca sinalização. Redobre a atenção.",
     cor: "red",
     votos: 0
   },
   {
     coords: [-5.2913331723096215, -44.49343273945068],
-    rua: "Avenida Olavo Sampaio",
+    rua: "Av.  Olavo Sampaio",
     problema: "🚨 Alto movimento de veículos e pedestres. Risco de acidentes.",
     cor: "red",
     votos: 0
   },
   {
     coords: [-5.304294217064379, -44.48944383231806],
-    rua: "Avenida Campo Dantas",
+    rua: "Av.  Campo Dantas",
     problema: "⚠️ Buracos e pouca iluminação. Trafegue com cuidado.",
     cor: "red",
     votos: 0
   },
   {
     coords: [-5.303800519564994, -44.49618541697438],
-    rua: "Avenida Costa e Silva",
+    rua: "Av.  Costa e Silva",
     problema: "🚨 Via com buracos e grande movimentação. Atenção redobrada.",
     cor: "red",
     votos: 0
   },
   {
     coords: [-5.282648829807214, -44.49116045930247],
-    rua: "Avenida Alderico Guimarães",
+    rua: "Av.  Alderico Guimarães",
     problema: "⚠️ Pista irregular e sem sinalização adequada.",
     cor: "red",
     votos: 0
   },
   {
     coords: [-5.281997574034968, -44.49611622592999],
-    rua: "Avenida Idalgo Martins Silveira (rotatória)",
+    rua: "Av.Idalgo Martins Silveira (rotatória)",
     problema: "🚨 Rotatória com fluxo intenso. Dirija com cautela.",
     cor: "red",
     votos: 0
@@ -83,42 +83,42 @@ const pontos = [
 
  {
   coords: [-5.289550882324903, -44.49256064766194],
-  rua: "Rua Vitorino Lucena",
+  rua: "R. Vitorino Lucena",
   problema: "⚠️ Problemas urbanos relatados. Atenção ao trafegar.",
   cor: "#facc15", // 🟡 leve
   votos: 0
 },
 {
   coords: [-5.286589075106344, -44.48855911884127],
-  rua: "Rua Ladislau Moreira",
+  rua: "R. Ladislau Moreira",
   problema: "⚠️ Problemas urbanos relatados. Atenção ao trafegar.",
   cor: "#f97316", // 🟠 médio
   votos: 0
 },
 {
   coords: [-5.289627116071776, -44.490863618825784],
-  rua: "Rua Adalto Cruz",
+  rua: "R. Adalto Cruz",
   problema: "⚠️ Problemas urbanos relatados. Atenção ao trafegar.",
   cor: "#fb923c", // 🟠 médio suave
   votos: 0
 },
 {
   coords: [-5.28285774664263, -44.49288348813834],
-  rua: "Rua Magalhães de Almeida",
+  rua: "R. Magalhães de Almeida",
   problema: "⚠️ Problemas urbanos relatados. Atenção ao trafegar.",
   cor: "#38bdf8", // 🔵 neutro
   votos: 0
 },
 {
   coords: [-5.29705513242832, -44.49214391512271],
-  rua: "Rua Mário Pereira",
+  rua: "R. Mário Pereira",
   problema: "⚠️ Problemas urbanos relatados. Atenção ao trafegar.",
   cor: "#facc15", // 🟡 leve
   votos: 0
 },
 {
   coords: [-5.30077511178637, -44.48714210275003],
-  rua: "Rua Raimundo França (Campo Dantas)",
+  rua: "R. Raimundo França (Campo Dantas)",
   problema: "⚠️ Problemas urbanos relatados. Atenção ao trafegar.",
   cor: "#4ade80", // 🟢 tranquilo
   votos: 0
@@ -402,7 +402,6 @@ function criarIconeTipo(tipo) {
   if (tipo === "Segurança") cor = "#ef4444";
   if (tipo === "Iluminação") cor = "#facc15";
   if (tipo === "Infraestrutura") cor = "#3b82f6";
-  if (tipo === "Limpeza") cor = "#10b981";
 
   return L.divIcon({
     className: '',
@@ -536,7 +535,6 @@ function carregarReclamacoes() {
       if (r.categoria === "Segurança") cor = "#ef4444";
       if (r.categoria === "Iluminação") cor = "#facc15";
       if (r.categoria === "Infraestrutura") cor = "#3b82f6";
-      if (r.categoria === "Limpeza") cor = "#10b981";
 
       lista.innerHTML += `
         <div class="item-reclamacao" style="border-left: 5px solid ${cor}">
@@ -563,11 +561,12 @@ function atualizarGrafico() {
 
   let dadosOrdenados = [...pontos]
     .sort((a, b) => b.votos - a.votos)
-    .slice(0, 6); // 🔥 TOP 6
 
-  const nomes = dadosOrdenados.map(p => 
-    p.rua.length > 20 ? p.rua.slice(0, 20) + "..." : p.rua
-  );
+const nomes = dadosOrdenados.map(p => p.rua);
+
+const altura = dadosOrdenados.length * 30;
+
+canvas.parentElement.style.height = altura + "px";
 
   const votos = dadosOrdenados.map(p => p.votos);
 
@@ -628,20 +627,33 @@ options: {
         font: {
           size: window.innerWidth < 600 ? 10 : 12
         }
+        
       },
       grid: {
         color: "rgba(0,0,0,0.05)"
-      }
+      } 
     },
 
     y: {
-      ticks: {
-        color: "#111827",
-        font: {
-          size: window.innerWidth < 600 ? 11 : 13,
-          weight: "600"
-        }
+    ticks: {
+      color: "#6b7280",
+      padding: 6,
+
+      font: {
+        size: window.innerWidth < 600 ? 10 : 12,
+        weight: "800"
       },
+
+      callback: function(value, index) {
+        const label = this.chart.data.labels[index];
+        if (!label) return "";
+
+        // 👉 corta bonito (sem quebrar layout)
+        return label.length > 16 
+          ? label.slice(0, 16) + "…" 
+          : label;
+      }
+    },
       grid: {
         display: false
       }

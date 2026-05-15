@@ -142,10 +142,10 @@ html{
     width: 100%;
     max-width: 500px;
     margin: 20px auto;
-
+    height: 300px;
     background: #ffffff;
     border-radius: 18px;
-
+    overflow-y: auto;
     padding: 14px 12px;
 
     box-shadow: 0 8px 25px rgba(0,0,0,0.08);

@@ -119,11 +119,11 @@ main {
 
 #title {
     font-size: 2.3em;
-    color:var(--verde) ;
+    color:#c00707b7 ;
 }
 
 #title-part {
-    color: var(--azul);
+    color: #c00707b7;
 }
 
 #txt1 {
