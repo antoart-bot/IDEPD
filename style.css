@@ -508,10 +508,12 @@ html{
     #titleprin{
         font-size: 46px;
         line-height: 1.2;
+        backdrop-filter: blur(2px);
     }
 
     #titleprin h1{
         font-size: 60px;
+        backdrop-filter: blur(2px);
     }
 
 /* 📱 TABLET E CELULAR */
