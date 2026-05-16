@@ -4,6 +4,9 @@ let markersLayer;
 let markersUsuarios;
 let markersFixos;
 
+
+Chart.defaults.font.family = "'Inter', 'Poppins', sans-serif";
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, set, onValue, push } 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -562,13 +565,14 @@ function atualizarGrafico() {
   let dadosOrdenados = [...pontos]
     .sort((a, b) => b.votos - a.votos)
 
-const nomes = dadosOrdenados.map(p => p.rua);
 
-const altura = dadosOrdenados.length * 30;
-
-canvas.parentElement.style.height = altura + "px";
-
+  const nomes = dadosOrdenados.map(p => p.rua);
   const votos = dadosOrdenados.map(p => p.votos);
+
+const altura = window.innerWidth < 600
+  ? nomes.length * 45   // 📱 mais espaço no celular
+  : nomes.length * 42;
+canvas.parentElement.style.height = altura + "px";  
 
   if (grafico) {
     grafico.destroy();
@@ -578,106 +582,104 @@ canvas.parentElement.style.height = altura + "px";
     type: 'bar',
     data: {
       labels: nomes,
-      datasets: [{
-        label: 'Votos',
-        data: votos,
-        hoverBackgroundColor: "#dc2626",
+    datasets: [{
+      data: votos,
 
-        borderRadius: 12,
-        borderSkipped: false,
-        barThickness: window.innerWidth < 600 ? 16 : 22,
+      backgroundColor: "rgba(37, 99, 235, 0.9)",
+      borderRadius: 12,
 
-        // 🎨 GRADIENTE PROFISSIONAL
-        backgroundColor: function(context) {
-          const chart = context.chart;
-          const {ctx, chartArea} = chart;
+      barThickness: window.innerWidth < 600 ? 14 : 18,
 
-          if (!chartArea) return;
-
-          const gradient = ctx.createLinearGradient(0, 0, 300, 0);
-
-          gradient.addColorStop(0, "#ef4444"); // vermelho forte
-          gradient.addColorStop(1, "#fca5a5"); // vermelho claro
-
-          return gradient;
-        }
-      }]
+      borderSkipped: false
+    }]
     },
 
 options: {
   responsive: true,
   maintainAspectRatio: false,
 
+   layout: {
+  padding: {
+    left: 45,
+    right: 15
+  }
+},
+
   indexAxis: 'y',
 
-  layout: {
-    padding: {
-      top: 5,
-      bottom: 5,
-      left: 5,
-      right: 10
+  plugins: {
+    legend: { display: false },
+tooltip: {
+  callbacks: {
+    title: function(context) {
+      return context[0].label; // 🔥 nome completo aqui
+    },
+    label: function(context) {
+      return "Votos: " + context.raw;
+    }
+  }
+},
+    title: {
+      display: true,
+      text: "Evolução das ocorrências",
+      color: "#111",
+      font: {
+        size: 15,
+        weight: "600"
+      },
+      padding: {
+        bottom: 8
+      }
     }
   },
 
-  scales: {
-    x: {
-      beginAtZero: true,
-      ticks: {
-        color: "#6b7280",
-        font: {
-          size: window.innerWidth < 600 ? 10 : 12
-        }
-        
-      },
-      grid: {
-        color: "rgba(0,0,0,0.05)"
-      } 
-    },
+  
+scales: {
+  x: {
+    beginAtZero: true,
 
-    y: {
     ticks: {
       color: "#6b7280",
-      padding: 6,
-
       font: {
-        size: window.innerWidth < 600 ? 10 : 12,
-        weight: "800"
-      },
-
-      callback: function(value, index) {
-        const label = this.chart.data.labels[index];
-        if (!label) return "";
-
-        // 👉 corta bonito (sem quebrar layout)
-        return label.length > 16 
-          ? label.slice(0, 16) + "…" 
-          : label;
+        size: window.innerWidth < 600 ? 10 : 12
       }
     },
-      grid: {
-        display: false
-      }
+
+    grid: {
+      color: "rgba(0,0,0,0.06)"
     }
   },
 
-  plugins: {
-    legend: {
+  y: {
+    grid: {
       display: false
     },
 
-    tooltip: {
-      backgroundColor: "#111827",
-      titleColor: "#fff",
-      bodyColor: "#fff",
-      padding: 10,
-      cornerRadius: 10,
-      displayColors: false
-    }
-  },
+    ticks: {
+      autoSkip: false,
+      color: "#111827",
+      padding: 6,
 
-  animation: {
-    duration: 1000
+      font: {
+        size: window.innerWidth < 600 ? 10 : 13,
+        weight: "600"
+      },
+
+      callback: function(value, index) {
+        let label = this.chart.data.labels[index];
+        if (!label) return "";
+
+        const limite = window.innerWidth < 600 ? 16 : 26;
+
+        return label.length > limite
+          ? label.slice(0, limite) + "..."
+          : label;
+      }
+    }
   }
+},
+
+  animation: false // 🔥 estilo escolar NÃO usa animação
 }
   });
 }
