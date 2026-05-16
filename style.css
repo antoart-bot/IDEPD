@@ -499,7 +499,7 @@ html{
         padding: 60px 18px;
         min-height: auto;
             background: 
-        linear-gradient(rgba(255,255,255,0.95) 15%, rgba(0, 0, 0, 0.3)),
+        linear-gradient(to bottom,rgba(255,255,255,0.95) 45%, rgba(0, 0, 0, 0.3)),
         url('img/PRESIDENTE DUTRA.png') no-repeat right;
         background-size: 210%;
         background-position:center;
@@ -609,6 +609,7 @@ html{
 
     #titleprin h1{
         font-size: 58px;
+        backdrop-filter: blur(2px);
     }
 
     #txt1{
